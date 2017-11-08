@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>JQuery easyUI</title>
+		<!-- 导入jquery核心类库 -->
+		<script type="text/javascript" src="./js/jquery-1.8.3.js"></script>
+		<!– 导入 easyui 类库-->
+		<script type="text/javascript" src="./js/easyui/jquery.easyui.min.js"></script>
+		<!– 导入默认主题 CSS 文件-->
+		<link rel="stylesheet" type="text/css" href="./js/easyui/themes/default/easyui.css">
+		<!– 导入图标 CSS 文件-->
+		<link rel="stylesheet" type="text/css" href="./js/easyui/themes/icon.css">
+		<script type="text/javascript">
+			$(function(){
+				$("#czbo").click(function(){
+					$("#Mytabs").tabs('add',{
+						title:'传智播客',
+						content:'传智黑马'
+					});
+				});
+				$("#south").click(function(){
+					//$.messager.alert("标题","内容","warning");
+					/*$.messager.confirm("删除信息","确认要删除吗？",function(result){
+						if (result) {
+							alert("执行删除");
+						} else{
+							alert("取消删除");
+						}
+					});*/
+					/*$.messager.prompt("调查窗口","你叫什么名字？",function(val){
+						alert("你好："+val)
+					})*/
+					/*$.messager.show({
+						title:"标题",
+						msg:"减价大促销<a href='#'>猛戳这里</a>",
+						timeout:10000
+					});*/
+					$.messager.progress({
+						interval:500
+					});
+					window.setTimeout("$.messager.progress('close');",5000)
+				});
+				
+			});
+		</script>
+	</head>
+	<body class="easyui-layout">
+		<div data-options="region:'north',title:'North Title'" style="height:100px;"><center>北部地区</center></div> 
+		<div data-options="region:'south',title:'South Title'" style="height: 80px;">
+			<div id="south">
+				<a href="javascript:void(0)">哈哈</a>
+			</div>
+		</div>
+		<div data-options="region:'east',title:'East Title'" style="width: 100px;">东部地区</div>
+		<div data-options="region:'west',title:'West Title'" style="width: 170px;">
+			<div class="easyui-accordion" data-options="fit:true">
+				<div data-options="title:'基础菜单'"><a href="javascript:void(0)" id="czbo">基础菜单</a></div>
+				<div data-options="title:'系统菜单'">面板二</div>
+			</div>
+		</div>
+		<div data-options="region:'center',title:'Center Title'">
+			<div id="Mytabs" class="easyui-tabs" data-options="fit:true"> 
+				<div data-options="title:'选项卡面板一',closable:true">选项卡面板一</div>
+				<div data-options="title:'选项卡面板二'">选项卡面板二</div>
+			</div> 
+		</div>			
+	</body>
+</html>

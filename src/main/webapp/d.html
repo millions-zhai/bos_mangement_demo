@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 导入jquery核心类库 -->
+		<script type="text/javascript" src="./js/jquery-1.8.3.js"></script>
+		<!– 导入 easyui 类库-->
+		<script type="text/javascript" src="./js/easyui/jquery.easyui.min.js"></script>
+		<!– 导入默认主题 CSS 文件-->
+		<link rel="stylesheet" type="text/css" href="./js/easyui/themes/default/easyui.css">
+		<!– 导入图标 CSS 文件-->
+		<link rel="stylesheet" type="text/css" href="./js/easyui/themes/icon.css">
+		<!-- 引入ztree -->
+		<script src="./js/ztree/jquery.ztree.all-3.5.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="./js/ztree/zTreeStyle.css"/>
+		<script type="text/javascript">
+			$(function(){
+				$("#czbo").click(function(){
+					$("#Mytabs").tabs('add',{
+						title:'传智播客',
+						content:'传智黑马'
+					});
+				});
+				
+				var semytabsing={
+					data:{
+						simpleData:{
+							enable:true
+						}
+					},
+					callback:{
+						onClick:function(event,treeId,treeNode,clickFlag){
+							var content='<div style="width: 100%;height: 100%;overflow: hidden;">'
+								+'<iframe src="'
+								+treeNode.page
+								+'" scrolling="auto" style="width: 100%;height: 100%;border: 0px;"></iframe></div>';
+							if(treeNode.page){
+								if ($("#mytabs").tabs('exists',treeNode.name)) {
+									$("#mytabs").tabs('select',treeNode.name);
+								} else{
+									$("#mytabs").tabs('add',{
+										title:treeNode.name,
+										content:content,
+										closable:true
+									});
+								}
+							}
+						}
+					}
+				};
+				var zNodes=[
+					{id:1,pId:0,name:"父节点一"},
+					{id:2,pId:0,name:"父节点二"},
+					{id:11,pId:1,name:"可可英语",page:"http://www.kekenet.com/"},
+					{id:12,pId:1,name:"马蜂窝",page:"http://www.mafengwo.cn/"},
+					{id:13,pId:2,name:"京东",page:"http://www.jd.com"},
+					{id:14,pId:2,name:"百度",page:"http://www.baidu.com"}
+				];
+				$.fn.zTree.init($("#baseMenu"),semytabsing,zNodes);
+				$.fn.zTree.init($("#baseMenu2"),semytabsing,zNodes);
+				
+				var currentRighmytabsitle;
+				
+				$("#mytabs").tabs({
+					onContextMenu:function(e,title,index){
+						currentRighmytabsitle=title;
+						// 阻止默认菜单显示
+						e.preventDefault();
+						// 显示自定义右键菜单
+						$("#mm").menu('show',{
+							left:e.pageX,
+							top:e.pageY
+						});
+					}
+				});
+				
+				$("#closeCurrent").click(function(){
+				//获取选中的标签索引
+				    var tab = $('#mytabs').tabs('getSelected');
+				    var index = $('#mytabs').tabs('getTabIndex',tab);
+				    $("#mytabs").tabs("close",index);
+				});
+				//关闭选中标签之外的标签
+				$("#closeOthers").click(function(){
+				    //获取所有标签
+				    var tabs = $("#mytabs").tabs("tabs");
+				    var length = tabs.length;
+				    //获取选中标签的索引
+				    var tab = $('#mytabs').tabs('getSelected');
+				    var index = $('#mytabs').tabs('getTabIndex',tab);
+				    //关闭选中标签之前的标签
+				    for(var i=0;i<index;i++){
+				    $("#mytabs").tabs("close",0);
+				    }
+				    //关闭选中标签之后的标签
+				    for(var i=0;i<length-index-1;i++){
+				     $("#mytabs").tabs("close",1);
+				    }
+				});
+				//关闭所有标签
+				$("#closeAll").click(function(){
+				    var tabs = $("#mytabs").tabs("tabs");
+				    var length = tabs.length;
+				    for(var i=0;i<length;i++){
+				     $("#mytabs").tabs("close",0);
+				    }
+				});
+				
+			});
+		</script>
+	</head>
+	<body>
+		<a href="#" class="easyui-menubutton" data-options="iconCls:'icon-edit', menu:'#mb'">edit</a>
+		<div id="mb" style="width: 120px;">
+			<div>菜单一</div>
+			<div>菜单二</div>
+			<div>菜单三</div>
+			<div class="menu-sep"></div>
+			<div>菜单四</div>
+		</div>
+	</body>
+</html>

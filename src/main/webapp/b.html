@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- 导入jquery核心类库 -->
+		<script type="text/javascript" src="./js/jquery-1.8.3.js"></script>
+		<!– 导入 easyui 类库-->
+		<script type="text/javascript" src="./js/easyui/jquery.easyui.min.js"></script>
+		<!– 导入默认主题 CSS 文件-->
+		<link rel="stylesheet" type="text/css" href="./js/easyui/themes/default/easyui.css">
+		<!– 导入图标 CSS 文件-->
+		<link rel="stylesheet" type="text/css" href="./js/easyui/themes/icon.css">
+		<!-- 引入ztree -->
+		<script src="./js/ztree/jquery.ztree.all-3.5.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="./js/ztree/zTreeStyle.css"/>
+		<script type="text/javascript">
+			$(function(){
+				$("#czbo").click(function(){
+					$("#Mytabs").tabs('add',{
+						title:'传智播客',
+						content:'传智黑马'
+					});
+				});
+				
+				var setting={
+					data:{
+						simpleData:{
+							enable:true
+						}
+					}
+				};
+				var zNodes=[
+					{id:1,pId:0,name:"父节点一"},
+					{id:2,pId:0,name:"父节点二"},
+					{id:11,pId:1,name:"子节点一"},
+					{id:12,pId:1,name:"子节点二"},
+					{id:13,pId:2,name:"子节点三"},
+					{id:14,pId:2,name:"子节点四"}
+				];
+				$.fn.zTree.init($("#baseMenu"),setting,zNodes);
+				$.fn.zTree.init($("#baseMenu2"),setting,zNodes);
+			});
+		</script>
+	</head>
+	<body class="easyui-layout">
+		<div data-options="region:'north',title:'North Title'" style="height:100px;"><center>北部地区</center></div> 
+		<div data-options="region:'south',title:'South Title'" style="height: 80px;">南部地区</div>
+		<div data-options="region:'east',title:'East Title'" style="width: 100px;">东部地区</div>
+		<div data-options="region:'west',title:'West Title'" style="width: 170px;">
+			<div class="easyui-accordion" data-options="fit:true">
+				<div data-options="title:'基础菜单'">
+					<ul id="baseMenu" class="ztree"></ul>
+				</div>
+				<div data-options="title:'系统菜单'">
+					<ul id="baseMenu2" class="ztree"></ul>
+				</div>
+			</div>
+		</div>
+		<div data-options="region:'center',title:'Center Title'">
+			<div id="Mytabs" class="easyui-tabs" data-options="fit:true"> 
+				<div data-options="title:'选项卡面板一',closable:true">选项卡面板一</div>
+				<div data-options="title:'选项卡面板二',closable:true">选项卡面板二</div>
+			</div> 
+		</div>		
+	</body>
+</html>
